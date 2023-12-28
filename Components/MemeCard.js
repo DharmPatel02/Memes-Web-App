@@ -21,18 +21,13 @@ import {
   ModalFooter,
   ModalBody,
   ModalCloseButton,
-} from '@chakra-ui/react'
+} from "@chakra-ui/react";
 import { useState, useEffect } from "react";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
 import { BiChat } from "react-icons/bi";
 import { BiShare } from "react-icons/bi";
-import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-} from "@chakra-ui/react";
+import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 
 const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
   const [userProfilePic, setUserProfilePic] = useState(null);
@@ -42,19 +37,22 @@ const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
       if (!meme.userId) {
         return; // Handle the case when userId is not available
       }
-      const response = await fetch(`${process.env.NEXT_PUBLIC_HOST}/api/getuser/${meme.userId}`, {
-        method: 'GET', // *GET, POST, PUT, DELETE, etc.
-        headers: {
-          'Content-Type': 'application/json'
-        },
-      });
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/getuser/${meme.userId}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       const json = await response.json();
 
-      setUserProfilePic(json.userpic)
-    }
+      setUserProfilePic(json.userpic);
+    };
 
     fetchUserProfilePic();
-  }, [meme.userId])
+  }, [meme.userId]);
 
   return (
     <div>
@@ -84,10 +82,7 @@ const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
             <CardHeader>
               <Flex spacing="4">
                 <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                  <Avatar
-                    name="Profile Pic"
-                    src={userProfilePic}
-                  />
+                  <Avatar name="Profile Pic" src={userProfilePic} />
 
                   <Box>
                     <Heading size="sm">{meme.name}</Heading>
@@ -102,7 +97,13 @@ const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
                     variant="ghost"
                   />
                   <MenuList minWidth="150px">
-                    <MenuItem onClick={() => { !reported && handleReportMeme(meme._id); }}>{reported ? "Reported" : "Report Meme"}</MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        !reported && handleReportMeme(meme._id);
+                      }}
+                    >
+                      {reported ? "Reported" : "Report Meme"}
+                    </MenuItem>
                   </MenuList>
                 </Menu>
               </Flex>
@@ -110,7 +111,7 @@ const MemeCard = ({ meme, handleLike, handleReportMeme, liked, reported }) => {
             <CardBody>
               <Text>{meme.description}</Text>
             </CardBody>
-            <Box width={{ md: '400px', lg: '400px' }}>
+            <Box width={{ md: "400px", lg: "400px" }}>
               <Image
                 src={meme.memeUrl}
                 alt="Chakra UI"
